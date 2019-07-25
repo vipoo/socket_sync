@@ -1,0 +1,8 @@
+{
+  "root": true,
+  "globals": {
+  },
+  "rules": {
+  },
+  "extends": ["eslint-config-stickler"]
+}

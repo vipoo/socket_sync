@@ -1,0 +1,12 @@
+{
+ "templates": {
+    "default": {
+      "outputSourceFiles": true,
+      "includeDate": false
+    }
+  },
+  "opts": {
+    "template": "node_modules/docdash"
+  },
+  "plugins": ["plugins/markdown"]
+}

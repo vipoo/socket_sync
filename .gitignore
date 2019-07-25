@@ -1,0 +1,8 @@
+/examples
+/lib
+/index.js
+node_modules
+*.tgz
+/tmp
+/*.js
+!.babelrc.js
