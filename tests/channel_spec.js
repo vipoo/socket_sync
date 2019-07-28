@@ -2,10 +2,9 @@ import {eventually, expect} from './test_helper'
 import {joinChannel, createChannel} from '../src'
 import {first} from 'async_iter/pipeline'
 import {fromStream} from 'async_iter/from_stream'
-import {toArray} from 'async_iter/pipeline/to_array'
-import {take} from 'async_iter/pipeline/take'
-import {map} from 'async_iter/pipeline/map'
+import {toArray, take, map} from 'async_iter/pipeline'
 import {asPacket, byPacket} from '../src/by_packet'
+import {byNewLines} from '../src/by_new_lines'
 
 function firstMessage(channel) {
   return fromStream(channel) |> byPacket() |> map(r => r.toString()) |> first()
@@ -155,5 +154,15 @@ describe('Channel connections', () => {
     'some data2' |> asPacket |> client2.write
 
     await expect(serverMessage).to.deep.eventually.eq(['some data', 'some data2'])
+  })
+
+  it('sends data seperated by new line', async () => {
+    server = createChannel('identity')
+    client = joinChannel('identity')
+    const clientMessage = fromStream(client) |> byNewLines() |> first()
+    await server.isConnectedSignal
+    'some data\n' |> server.write
+
+    await expect(clientMessage).to.eventually.eq('some data')
   })
 })
