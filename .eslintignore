@@ -1,3 +1,6 @@
 ./examples
 ./lib
 node_modules
+
+src/channel_client.js
+src/channel_server.js
